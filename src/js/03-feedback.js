@@ -9,12 +9,14 @@ const inform =  {
 }
 const parseInform = JSON.parse(localStorage.getItem('feedback-form-state'));
 
-if (parseInform === null) {
+if (!parseInform) {
     formSubmit.email.value = inform.email;
     formSubmit.message.value = inform.message;
 } else {
-    formSubmit.email.value = parseInform.email;
-    formSubmit.message.value = parseInform.message;
+    inform.email = parseInform.email;
+    formSubmit.email.value = inform.email;
+    inform.message = parseInform.message;
+    formSubmit.message.value = inform.message;
 }
 
 function submitInputValue(event) {
