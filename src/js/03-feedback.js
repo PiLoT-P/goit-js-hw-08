@@ -1,7 +1,6 @@
 import throttle from 'lodash.throttle';
 
 const formSubmit = document.querySelector('.feedback-form');
-const valueJSON = JSON.stringify();
 
 const inform =  {
     email: '',
@@ -9,24 +8,23 @@ const inform =  {
 }
 const parseInform = JSON.parse(localStorage.getItem('feedback-form-state'));
 
-if (!parseInform) {
-    formSubmit.email.value = inform.email;
-    formSubmit.message.value = inform.message;
-} else {
+if (parseInform) {
     inform.email = parseInform.email;
-    formSubmit.email.value = inform.email;
+    formSubmit.email.value = parseInform.email;
     inform.message = parseInform.message;
-    formSubmit.message.value = inform.message;
+    formSubmit.message.value = parseInform.message;
 }
 
 function submitInputValue(event) {
     event.preventDefault();
-    if (formSubmit.email.value === '' && formSubmit.message.value === '') {
+    if (inform.email === '' || inform.message === '') {
         return alert('Write your email and message')
     }
     localStorage.clear();
     console.log(inform);
     event.currentTarget.reset();
+    inform.email = '';
+    inform.message = '';
 }
 
 function getInputValue (event) {
